@@ -144,7 +144,7 @@ const ScriptEditor: React.FC = () => {
 
   const handleRemoveCharacter = async (charId: string) => {
     if (!id || !project) return;
-    const updatedChars = (project.characters || []).filter((c: Character) => c.id !== charId);
+    const updatedChars = (project.characters || []).filter(c => c.id !== charId);
     await updateProject({ id, changes: { characters: updatedChars } }).unwrap();
   };
 
@@ -237,7 +237,7 @@ const ScriptEditor: React.FC = () => {
           <div className="p-4 md:p-5 border-b border-slate-50 flex items-center justify-between bg-slate-50/20">
             <div className="flex items-center gap-4">
               <select 
-                disabled={isReadOnly ?? undefined}
+                disabled={isReadOnly}
                 className="bg-white border border-slate-200 px-3 py-1.5 rounded-lg md:rounded-xl text-xs md:text-sm font-bold text-slate-600 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 disabled:opacity-50 cursor-pointer"
                 value={activeSection}
                 onChange={(e) => handleSectionChange(e.target.value as EditorSection)}
@@ -258,7 +258,7 @@ const ScriptEditor: React.FC = () => {
             )}
           </div>
           <textarea 
-            readOnly={isReadOnly ?? undefined}
+            readOnly={isReadOnly}
             className="flex-1 p-6 md:p-10 font-mono text-base md:text-lg leading-relaxed text-slate-700 focus:outline-none resize-none bg-transparent custom-scrollbar disabled:cursor-not-allowed"
             value={currentContent}
             onChange={(e) => {
@@ -278,7 +278,7 @@ const ScriptEditor: React.FC = () => {
               <span className="text-[10px] bg-indigo-50 px-2 py-0.5 rounded text-indigo-600 font-black uppercase tracking-widest">{project.characters?.length || 0}</span>
             </h4>
             <div className="space-y-3 overflow-y-auto flex-1 pr-1 custom-scrollbar">
-              {project.characters?.map((char: Character) => (
+              {project.characters?.map((char) => (
                 <div key={char.id} className="group flex items-center gap-3 p-4 bg-slate-50 rounded-xl md:rounded-2xl border border-transparent hover:border-indigo-100 hover:bg-white hover:shadow-md transition-all">
                   <div className="w-10 h-10 rounded-lg md:rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-black text-sm border border-indigo-100/50 uppercase shrink-0">
                     {char.name.charAt(0)}
