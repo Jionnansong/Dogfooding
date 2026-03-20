@@ -59,7 +59,7 @@ export const apiSlice = createApi({
   tagTypes: ['Project', 'Script', 'User', 'Analytics', 'Team', 'Brand'],
   endpoints: (builder) => ({
     // Removed generic type arguments to fix "Untyped function calls may not accept type arguments" errors
-    getDashboardStats: builder.query({
+    getDashboardStats: builder.query<DataMetric[], void>({
       async queryFn() {
         const data: DataMetric[] = [
           { label: '剧本总数', value: 128, change: 12, type: 'up' },
@@ -70,7 +70,7 @@ export const apiSlice = createApi({
         return { data };
       }
     }),
-    getAnalyticsData: builder.query({
+    getAnalyticsData: builder.query<AnalyticsResponse, string>({
       async queryFn(timeRange: string) {
         const isWeek = timeRange === 'week';
         const performance = isWeek ? [
@@ -101,7 +101,7 @@ export const apiSlice = createApi({
       },
       providesTags: (result: any, error: any, timeRange: string) => [{ type: 'Analytics' as const, id: timeRange }]
     }),
-    getTeamMembers: builder.query({
+    getTeamMembers: builder.query<TeamMember[], void>({
       async queryFn() {
         const saved = localStorage.getItem('mock_team');
         const data: TeamMember[] = saved ? JSON.parse(saved) : DEFAULT_MEMBERS;
@@ -109,7 +109,7 @@ export const apiSlice = createApi({
       },
       providesTags: ['Team']
     }),
-    inviteMember: builder.mutation({
+    inviteMember: builder.mutation<TeamMember, Partial<TeamMember>>({
       async queryFn(newMember: Partial<TeamMember>) {
         const saved = localStorage.getItem('mock_team');
         const current = saved ? JSON.parse(saved) : DEFAULT_MEMBERS;
@@ -128,7 +128,7 @@ export const apiSlice = createApi({
       },
       invalidatesTags: ['Team']
     }),
-    updateMember: builder.mutation({
+    updateMember: builder.mutation<TeamMember, { id: string; changes: Partial<TeamMember> }>({
       async queryFn({ id, changes }: { id: string; changes: Partial<TeamMember> }) {
         const saved = localStorage.getItem('mock_team');
         const current: TeamMember[] = saved ? JSON.parse(saved) : DEFAULT_MEMBERS;
@@ -139,7 +139,7 @@ export const apiSlice = createApi({
       },
       invalidatesTags: ['Team']
     }),
-    removeMember: builder.mutation({
+    removeMember: builder.mutation<void, string>({
       async queryFn(id: string) {
         const saved = localStorage.getItem('mock_team');
         const current: TeamMember[] = saved ? JSON.parse(saved) : DEFAULT_MEMBERS;
@@ -149,7 +149,7 @@ export const apiSlice = createApi({
       },
       invalidatesTags: ['Team']
     }),
-    getBrands: builder.query({
+    getBrands: builder.query<Brand[], void>({
       async queryFn() {
         const saved = localStorage.getItem('mock_brands');
         const data: Brand[] = saved ? JSON.parse(saved) : DEFAULT_BRANDS;
@@ -157,7 +157,7 @@ export const apiSlice = createApi({
       },
       providesTags: ['Brand']
     }),
-    createBrand: builder.mutation({
+    createBrand: builder.mutation<Brand, Partial<Brand>>({
       async queryFn(newBrand: Partial<Brand>) {
         const saved = localStorage.getItem('mock_brands');
         const current = saved ? JSON.parse(saved) : DEFAULT_BRANDS;
@@ -177,7 +177,7 @@ export const apiSlice = createApi({
       },
       invalidatesTags: ['Brand']
     }),
-    updateBrand: builder.mutation({
+    updateBrand: builder.mutation<Brand, { id: string; changes: Partial<Brand> }>({
       async queryFn({ id, changes }: { id: string; changes: Partial<Brand> }) {
         const saved = localStorage.getItem('mock_brands');
         const current: Brand[] = saved ? JSON.parse(saved) : DEFAULT_BRANDS;
@@ -188,7 +188,7 @@ export const apiSlice = createApi({
       },
       invalidatesTags: ['Brand']
     }),
-    deleteBrand: builder.mutation({
+    deleteBrand: builder.mutation<void, string>({
       async queryFn(id: string) {
         const saved = localStorage.getItem('mock_brands');
         const current: Brand[] = saved ? JSON.parse(saved) : DEFAULT_BRANDS;
@@ -198,7 +198,7 @@ export const apiSlice = createApi({
       },
       invalidatesTags: ['Brand']
     }),
-    getProjects: builder.query({
+    getProjects: builder.query<Project[], void>({
       async queryFn() {
         const saved = localStorage.getItem('mock_projects');
         const data: Project[] = saved ? JSON.parse(saved) : DEFAULT_PROJECTS;
@@ -206,7 +206,7 @@ export const apiSlice = createApi({
       },
       providesTags: ['Project']
     }),
-    getProjectById: builder.query({
+    getProjectById: builder.query<Project, string>({
       async queryFn(id: string) {
         const saved = localStorage.getItem('mock_projects');
         const current: Project[] = saved ? JSON.parse(saved) : DEFAULT_PROJECTS;
@@ -216,7 +216,7 @@ export const apiSlice = createApi({
       },
       providesTags: (result: any, error: any, id: string) => [{ type: 'Project' as const, id }]
     }),
-    createProject: builder.mutation({
+    createProject: builder.mutation<Project, Partial<Project>>({
       async queryFn(newProject: Partial<Project>) {
         const saved = localStorage.getItem('mock_projects');
         const current = saved ? JSON.parse(saved) : DEFAULT_PROJECTS;
@@ -236,7 +236,7 @@ export const apiSlice = createApi({
       },
       invalidatesTags: ['Project']
     }),
-    updateProject: builder.mutation({
+    updateProject: builder.mutation<Project, { id: string; changes: Partial<Project> }>({
       async queryFn({ id, changes }: { id: string; changes: Partial<Project> }) {
         const saved = localStorage.getItem('mock_projects');
         const current: Project[] = saved ? JSON.parse(saved) : DEFAULT_PROJECTS;
@@ -247,7 +247,7 @@ export const apiSlice = createApi({
       },
       invalidatesTags: (result: any, error: any, { id }: any) => ['Project', { type: 'Project' as const, id }]
     }),
-    deleteProject: builder.mutation({
+    deleteProject: builder.mutation<void, string>({
       async queryFn(id: string) {
         const saved = localStorage.getItem('mock_projects');
         const current: Project[] = saved ? JSON.parse(saved) : DEFAULT_PROJECTS;
