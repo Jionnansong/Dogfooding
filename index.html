@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>斗地主 - 经典纸牌游戏</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 游戏主容器 -->
+    <div class="game-container">
+        <!-- 游戏头部 -->
+        <header class="game-header">
+            <h1 class="game-title">斗地主</h1>
+            <div class="game-info">
+                <span class="player-info">当前玩家: <strong id="currentPlayer">玩家1</strong></span>
+                <span class="score-info">积分: <strong id="score">0</strong></span>
+            </div>
+        </header>
+
+        <!-- 游戏桌面 -->
+        <main class="game-table">
+            <!-- 电脑玩家2（上方） -->
+            <div class="player-area player-top">
+                <div class="player-info-box">
+                    <span class="player-name">电脑2</span>
+                    <span class="card-count" id="player2-count">17张</span>
+                    <span class="player-role" id="player2-role">农民</span>
+                </div>
+                <div class="player-cards" id="player2-cards"></div>
+            </div>
+
+            <!-- 电脑玩家1（左侧） -->
+            <div class="player-area player-left">
+                <div class="player-info-box">
+                    <span class="player-name">电脑1</span>
+                    <span class="card-count" id="player1-count">17张</span>
+                    <span class="player-role" id="player1-role">农民</span>
+                </div>
+                <div class="player-cards" id="player1-cards"></div>
+            </div>
+
+            <!-- 电脑玩家3（右侧） -->
+            <div class="player-area player-right">
+                <div class="player-info-box">
+                    <span class="player-name">电脑3</span>
+                    <span class="card-count" id="player3-count">17张</span>
+                    <span class="player-role" id="player3-role">农民</span>
+                </div>
+                <div class="player-cards" id="player3-cards"></div>
+            </div>
+
+            <!-- 中央出牌区域 -->
+            <div class="play-area">
+                <div class="played-cards" id="played-cards">
+                    <div class="played-cards-player0" id="played-cards-player0"></div>
+                    <div class="played-cards-player1" id="played-cards-player1"></div>
+                    <div class="played-cards-player2" id="played-cards-player2"></div>
+                    <div class="played-cards-player3" id="played-cards-player3"></div>
+                </div>
+                <!-- 底牌显示区域 -->
+                <div class="base-cards" id="base-cards">
+                    <span class="base-cards-label">底牌:</span>
+                    <div class="base-cards-container" id="base-cards-container"></div>
+                </div>
+                <!-- 游戏提示信息 -->
+                <div class="game-message" id="game-message"></div>
+            </div>
+
+            <!-- 玩家区域（下方） -->
+            <div class="player-area player-bottom">
+                <div class="player-info-box">
+                    <span class="player-name">玩家</span>
+                    <span class="card-count" id="player0-count">17张</span>
+                    <span class="player-role" id="player0-role">农民</span>
+                </div>
+                <div class="player-cards" id="player0-cards"></div>
+            </div>
+        </main>
+
+        <!-- 游戏控制面板 -->
+        <div class="control-panel">
+            <!-- 叫地主按钮 -->
+            <div class="bid-buttons" id="bid-buttons" style="display: none;">
+                <button class="game-btn btn-primary" onclick="game.bid(1)">叫地主</button>
+                <button class="game-btn btn-secondary" onclick="game.bid(0)">不叫</button>
+            </div>
+
+            <!-- 出牌按钮 -->
+            <div class="play-buttons" id="play-buttons" style="display: none;">
+                <button class="game-btn btn-primary" onclick="game.playCards()">出牌</button>
+                <button class="game-btn btn-secondary" onclick="game.pass()">不出</button>
+                <button class="game-btn btn-hint" onclick="game.hint()">提示</button>
+            </div>
+
+            <!-- 重新开始按钮 -->
+            <div class="restart-buttons" id="restart-buttons" style="display: none;">
+                <button class="game-btn btn-primary" onclick="game.startNewGame()">重新开始</button>
+            </div>
+        </div>
+
+        <!-- 作弊面板 -->
+        <div class="cheat-panel">
+            <button class="cheat-toggle" onclick="toggleCheatPanel()">🎮 作弊</button>
+            <div class="cheat-content" id="cheat-content" style="display: none;">
+                <h3>作弊功能</h3>
+                <div class="cheat-buttons">
+                    <button class="cheat-btn" onclick="cheat.showBaseCards()">查看底牌</button>
+                    <button class="cheat-btn" onclick="cheat.seeAllCards()">查看所有牌</button>
+                    <button class="cheat-btn" onclick="cheat.exchangeCards()">换好牌</button>
+                    <button class="cheat-btn" onclick="cheat.autoWin()">必胜牌型</button>
+                    <button class="cheat-btn" onclick="cheat.addScore()">加分</button>
+                    <button class="cheat-btn" onclick="cheat.resetScore()">重置分数</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 游戏结束弹窗 -->
+    <div class="modal" id="game-over-modal" style="display: none;">
+        <div class="modal-content">
+            <h2 id="game-over-title">游戏结束</h2>
+            <p id="game-over-message"></p>
+            <button class="game-btn btn-primary" onclick="game.startNewGame(); closeModal()">再来一局</button>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
