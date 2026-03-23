@@ -1,0 +1,8 @@
+{
+  "name": "MiaostarsAPlay - 喵星智剧",
+  "description": "An enterprise-grade short drama production and management platform featuring professional script editing, data analytics, and team collaboration.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
