@@ -15,7 +15,7 @@ interface UseFilterReturn<T> {
   isFiltered: boolean;
 }
 
-function useFilter<T extends Record<string, unknown>>({
+function useFilter<T>({
   data,
   filterKeys,
   initialFilter = '',

@@ -10,7 +10,7 @@ import { Brand } from '@/types';
 import { Loader2, Plus, X, Layout, Settings, Trash2, Palette, Globe, Layers, AlertTriangle } from 'lucide-react';
 
 const BrandManagement: React.FC = () => {
-  const { data: brands, isLoading } = useGetBrandsQuery();
+  const { data: brands, isLoading } = useGetBrandsQuery(undefined);
   const [createBrand] = useCreateBrandMutation();
   const [updateBrand] = useUpdateBrandMutation();
   const [deleteBrand] = useDeleteBrandMutation();

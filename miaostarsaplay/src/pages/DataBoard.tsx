@@ -109,7 +109,7 @@ const DataBoard: React.FC = () => {
           [...Array(4)].map((_, i) => (
             <div key={i} className="h-40 bg-white rounded-[2.5rem] animate-pulse border border-slate-100"></div>
           ))
-        ) : data?.summary.map((stat, idx) => (
+        ) : data?.summary.map((stat: any, idx: number) => (
           <div key={idx} className="bg-white p-8 rounded-[2.5rem] shadow-sm border border-slate-100 group hover:shadow-xl hover:shadow-indigo-50/50 transition-all duration-500 overflow-hidden relative">
             <div className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-6 transition-transform group-hover:scale-110 duration-500 ${
               stat.color === 'indigo' ? 'bg-indigo-50 text-indigo-600' :

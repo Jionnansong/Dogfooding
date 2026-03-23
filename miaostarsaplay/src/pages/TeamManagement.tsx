@@ -10,7 +10,7 @@ import { TeamMember } from '@/types';
 import { Loader2, Plus, X, UserPlus, Settings, Trash2, Mail, Check, AlertCircle, ChevronRight, Calendar } from 'lucide-react';
 
 const TeamManagement: React.FC = () => {
-  const { data: members, isLoading } = useGetTeamMembersQuery();
+  const { data: members, isLoading } = useGetTeamMembersQuery(undefined);
   const [inviteMember] = useInviteMemberMutation();
   const [updateMember] = useUpdateMemberMutation();
   const [removeMember] = useRemoveMemberMutation();

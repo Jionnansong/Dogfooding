@@ -8,7 +8,7 @@ import { useModal, useFilter } from '@/hooks';
 import { Project } from '@/types';
 
 const Projects: React.FC = () => {
-  const { data: projects, isLoading } = useGetProjectsQuery();
+  const { data: projects, isLoading } = useGetProjectsQuery(undefined);
   const [createProject] = useCreateProjectMutation();
   const [updateProject] = useUpdateProjectMutation();
   const [deleteProject] = useDeleteProjectMutation();

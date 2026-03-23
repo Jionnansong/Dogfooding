@@ -144,7 +144,7 @@ const ScriptEditor: React.FC = () => {
 
   const handleRemoveCharacter = async (charId: string) => {
     if (!id || !project) return;
-    const updatedChars = (project.characters || []).filter(c => c.id !== charId);
+    const updatedChars = (project.characters || []).filter((c: Character) => c.id !== charId);
     await updateProject({ id, changes: { characters: updatedChars } }).unwrap();
   };
 
@@ -176,7 +176,7 @@ const ScriptEditor: React.FC = () => {
     </div>
   );
 
-  const isReadOnly = user && user.tokenQuota.used >= user.tokenQuota.total;
+  const isReadOnly = !!(user && user.tokenQuota.used >= user.tokenQuota.total);
   const currentContent = localScripts[activeSection];
 
   return (
@@ -278,7 +278,7 @@ const ScriptEditor: React.FC = () => {
               <span className="text-[10px] bg-indigo-50 px-2 py-0.5 rounded text-indigo-600 font-black uppercase tracking-widest">{project.characters?.length || 0}</span>
             </h4>
             <div className="space-y-3 overflow-y-auto flex-1 pr-1 custom-scrollbar">
-              {project.characters?.map((char) => (
+              {project.characters?.map((char: Character) => (
                 <div key={char.id} className="group flex items-center gap-3 p-4 bg-slate-50 rounded-xl md:rounded-2xl border border-transparent hover:border-indigo-100 hover:bg-white hover:shadow-md transition-all">
                   <div className="w-10 h-10 rounded-lg md:rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-black text-sm border border-indigo-100/50 uppercase shrink-0">
                     {char.name.charAt(0)}

@@ -11,13 +11,13 @@ interface Stat {
 }
 
 interface UseDashboardDataReturn {
-  user: { username: string } | undefined;
+  user: { username: string } | null;
   stats: Stat[] | undefined;
   projects:
     | {
         id: string;
         title: string;
-        status: string;
+        status: 'planning' | 'shooting' | 'post-production' | 'completed';
         updatedAt: string;
         author: string;
         description?: string;
@@ -29,8 +29,8 @@ interface UseDashboardDataReturn {
 
 function useDashboardData(): UseDashboardDataReturn {
   const { user } = useSelector((state: RootState) => state.auth);
-  const { data: stats, isLoading: statsLoading } = useGetDashboardStatsQuery();
-  const { data: projects, isLoading: projectsLoading } = useGetProjectsQuery();
+  const { data: stats, isLoading: statsLoading } = useGetDashboardStatsQuery(undefined);
+  const { data: projects, isLoading: projectsLoading } = useGetProjectsQuery(undefined);
 
   const memoizedStats = useMemo(() => {
     if (!stats) return undefined;

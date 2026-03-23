@@ -11,7 +11,7 @@ import { Menu, X, ChevronRight, LogOut, Zap, Activity } from 'lucide-react';
 
 const MainLayout: React.FC = () => {
   const { user } = useSelector((state: RootState) => state.auth);
-  const { data: projects } = useGetProjectsQuery();
+  const { data: projects } = useGetProjectsQuery(undefined);
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
